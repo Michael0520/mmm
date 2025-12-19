@@ -401,7 +401,7 @@ function LandingPage(): React.ReactElement {
   const navigate = useNavigate()
 
   const handleStart = (): void => {
-    navigate({ to: '/rps' })
+    navigate({ to: '/cat' })
   }
 
   return (

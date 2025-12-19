@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PhotoRouteImport } from './routes/photo'
+import { Route as EndingRouteImport } from './routes/ending'
 import { Route as CatRouteImport } from './routes/cat'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo/start.server-funcs'
@@ -23,6 +24,11 @@ import { Route as DemoStartSsrDataOnlyRouteImport } from './routes/demo/start.ss
 const PhotoRoute = PhotoRouteImport.update({
   id: '/photo',
   path: '/photo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EndingRoute = EndingRouteImport.update({
+  id: '/ending',
+  path: '/ending',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CatRoute = CatRouteImport.update({
@@ -74,6 +80,7 @@ const DemoStartSsrDataOnlyRoute = DemoStartSsrDataOnlyRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cat': typeof CatRoute
+  '/ending': typeof EndingRoute
   '/photo': typeof PhotoRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cat': typeof CatRoute
+  '/ending': typeof EndingRoute
   '/photo': typeof PhotoRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
@@ -99,6 +107,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/cat': typeof CatRoute
+  '/ending': typeof EndingRoute
   '/photo': typeof PhotoRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
@@ -113,6 +122,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/cat'
+    | '/ending'
     | '/photo'
     | '/demo/api/names'
     | '/demo/start/api-request'
@@ -125,6 +135,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/cat'
+    | '/ending'
     | '/photo'
     | '/demo/api/names'
     | '/demo/start/api-request'
@@ -137,6 +148,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/cat'
+    | '/ending'
     | '/photo'
     | '/demo/api/names'
     | '/demo/start/api-request'
@@ -150,6 +162,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CatRoute: typeof CatRoute
+  EndingRoute: typeof EndingRoute
   PhotoRoute: typeof PhotoRoute
   DemoApiNamesRoute: typeof DemoApiNamesRoute
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
@@ -167,6 +180,13 @@ declare module '@tanstack/react-router' {
       path: '/photo'
       fullPath: '/photo'
       preLoaderRoute: typeof PhotoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ending': {
+      id: '/ending'
+      path: '/ending'
+      fullPath: '/ending'
+      preLoaderRoute: typeof EndingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cat': {
@@ -238,6 +258,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CatRoute: CatRoute,
+  EndingRoute: EndingRoute,
   PhotoRoute: PhotoRoute,
   DemoApiNamesRoute: DemoApiNamesRoute,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,
