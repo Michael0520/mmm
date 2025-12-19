@@ -57,6 +57,7 @@ function PhotoPage(): React.ReactElement {
             padding: '6px',
             background: '#ff66cc',
             boxShadow: '0 0 20px #ff66cc, 0 0 40px #ff66cc50',
+            width: 'min(50vw, calc((70vh * 3) / 4))',
           }}
         >
           {/* Hidden file input */}
@@ -70,10 +71,9 @@ function PhotoPage(): React.ReactElement {
 
           {/* Clickable photo area */}
           <div
-            className="relative flex items-center justify-center cursor-pointer hover:opacity-90 transition-opacity"
+            className="relative flex items-center justify-center cursor-pointer hover:opacity-90 transition-opacity w-full"
             style={{
-              width: 'min(85vw, 480px)',
-              height: 'min(65vh, 600px)',
+              aspectRatio: '3/4',
               background: '#1a1a2e',
             }}
             onClick={handlePhotoClick}

@@ -38,18 +38,16 @@ function EndingPage(): React.ReactElement {
       <Snowfall count={80} />
 
       {/* Main content */}
-      <div className="relative z-10 flex flex-col items-center justify-center gap-6 px-4 text-center">
-        {/* Bento Grid - 3 Portrait Photos (Maximized) */}
+      <div className="relative z-10 flex flex-col items-center justify-center gap-3 px-2 text-center w-full">
+        {/* Bento Grid - 3 Portrait Photos (iPhone portrait ratio) */}
         <div
-          className="grid gap-2 sm:gap-3"
+          className="flex gap-2 sm:gap-3 justify-center items-center w-full"
           style={{
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            width: '95vw',
-            maxWidth: '960px',
+            maxWidth: '98vw',
           }}
         >
           {[0, 1, 2].map((index) => (
-            <div key={index}>
+            <div key={index} style={{ flex: '1 1 0', maxWidth: 'calc((85vh * 3) / 4)' }}>
               {/* Hidden file input */}
               <input
                 ref={fileInputRefs[index]}
@@ -59,13 +57,12 @@ function EndingPage(): React.ReactElement {
                 className="hidden"
               />
 
-              {/* Photo slot */}
+              {/* Photo slot - iPhone portrait ratio 3:4 */}
               <div
-                className="relative flex items-center justify-center cursor-pointer hover:opacity-90 transition-opacity"
+                className="relative flex items-center justify-center cursor-pointer hover:opacity-90 transition-opacity w-full"
                 style={{
-                  width: '100%',
                   aspectRatio: '3/4',
-                  maxHeight: '55vh',
+                  maxHeight: '78vh',
                   background: '#1a1a2e',
                   border: '4px solid #ff66cc',
                   boxShadow: '0 0 15px #ff66cc50',
