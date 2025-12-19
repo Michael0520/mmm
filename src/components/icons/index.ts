@@ -1,0 +1,5 @@
+export { PixelStar } from './PixelStar'
+export { PixelGift } from './PixelGift'
+export { PixelTree } from './PixelTree'
+export { PixelSanta } from './PixelSanta'
+export { PixelSnowman } from './PixelSnowman'
