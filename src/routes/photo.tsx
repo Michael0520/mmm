@@ -33,6 +33,26 @@ function PhotoPage(): React.ReactElement {
       {/* Snowfall background */}
       <Snowfall count={60} />
 
+      {/* My Cat 1 - bottom left decoration (facing right) */}
+      <img
+        src="/my-cat.png"
+        alt="My cat"
+        className="fixed bottom-0 left-0 z-10 w-56 sm:w-72 md:w-80 opacity-95"
+        style={{
+          filter: 'drop-shadow(0 0 15px rgba(255,102,204,0.6))',
+        }}
+      />
+
+      {/* My Cat 2 - bottom right decoration (facing left) */}
+      <img
+        src="/my-cat-2.png"
+        alt="My cat 2"
+        className="fixed bottom-0 right-0 z-10 w-56 sm:w-72 md:w-80 opacity-95"
+        style={{
+          filter: 'drop-shadow(0 0 15px rgba(0,255,255,0.6))',
+        }}
+      />
+
       {/* Main content */}
       <div className="relative z-10 flex flex-col items-center justify-center gap-6 px-4 text-center">
         {/* Title */}
