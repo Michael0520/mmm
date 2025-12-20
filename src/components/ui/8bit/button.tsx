@@ -50,7 +50,10 @@ function Button({ children, asChild, ...props }: BitButtonProps) {
     <ShadcnButton
       {...props}
       className={cn(
-        "rounded-none active:translate-y-1 transition-transform relative inline-flex items-center justify-center gap-1.5 border-none m-1.5 cursor-pointer",
+        "rounded-none relative inline-flex items-center justify-center gap-1.5 border-none m-1.5 cursor-pointer",
+        "transition-all duration-150 ease-out",
+        "hover:brightness-110 hover:scale-[1.02] hover:-translate-y-0.5",
+        "active:translate-y-1 active:scale-[0.98] active:brightness-90",
         size === "icon" && "mx-1 my-0",
         font !== "normal" && "retro",
         className

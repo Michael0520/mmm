@@ -277,3 +277,77 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Glow animations for neon text - high contrast */
+@keyframes glow-cyan {
+  0%, 100% {
+    text-shadow:
+      0 0 5px #00ffff80,
+      0 0 10px #00ffff40,
+      4px 4px 0 #004444;
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    text-shadow:
+      0 0 20px #00ffff,
+      0 0 40px #00ffff,
+      0 0 60px #00ffff,
+      0 0 80px #00ffffaa,
+      4px 4px 0 #006666;
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes glow-pink {
+  0%, 100% {
+    text-shadow:
+      0 0 5px #ff66cc80,
+      0 0 10px #ff66cc40,
+      3px 3px 0 #440022;
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    text-shadow:
+      0 0 15px #ff66cc,
+      0 0 30px #ff66cc,
+      0 0 50px #ff66ccaa,
+      3px 3px 0 #660033;
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes glow-gold {
+  0%, 100% {
+    text-shadow:
+      0 0 4px #ffd70080,
+      0 0 8px #ffd70040;
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    text-shadow:
+      0 0 12px #ffd700,
+      0 0 24px #ffd700,
+      0 0 40px #ffd700aa;
+    opacity: 1;
+    transform: scale(1.03);
+  }
+}
+
+.animate-glow-cyan {
+  animation: glow-cyan 2.5s ease-in-out infinite;
+}
+
+.animate-glow-pink {
+  animation: glow-pink 2.5s ease-in-out infinite;
+  animation-delay: 0.4s;
+}
+
+.animate-glow-gold {
+  animation: glow-gold 2.5s ease-in-out infinite;
+  animation-delay: 0.8s;
+}

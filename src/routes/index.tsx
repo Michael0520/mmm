@@ -466,47 +466,48 @@ function LandingPage(): React.ReactElement {
         />
       </Shader>
 
-      {/* Title - Top Left Corner */}
+      {/* Title - Top Left Corner with dark mask */}
       <div
-        className="fixed top-6 left-6 z-10 flex flex-col gap-1 px-4 py-3 rounded-sm"
+        className="fixed top-6 left-6 z-10 flex flex-col gap-0 px-5 py-4 rounded-sm"
         style={{
-          background: 'rgba(0, 0, 0, 0.4)',
+          background: 'rgba(0, 0, 0, 0.5)',
           backdropFilter: 'blur(4px)',
-          border: '2px solid rgba(255, 255, 255, 0.1)',
         }}
       >
         <h1
-          className="text-3xl sm:text-4xl md:text-5xl font-pixel tracking-wider"
+          className="text-6xl sm:text-7xl md:text-8xl font-pixel tracking-wider animate-glow-cyan"
           style={{
             color: '#ffffff',
             textShadow: `
               0 0 10px #00ffff,
               0 0 20px #00ffff,
               0 0 40px #00ffff,
-              3px 3px 0 #004444
+              0 0 60px #00ffff,
+              4px 4px 0 #006666
             `,
           }}
         >
           MMM
         </h1>
         <h2
-          className="text-xl sm:text-2xl md:text-3xl font-pixel"
+          className="text-3xl sm:text-4xl md:text-5xl font-pixel animate-glow-pink"
           style={{
             color: '#ffffff',
             textShadow: `
               0 0 10px #ff66cc,
               0 0 20px #ff66cc,
-              3px 3px 0 #440022
+              0 0 40px #ff66cc,
+              3px 3px 0 #660033
             `,
           }}
         >
           Christmas
         </h2>
         <p
-          className="text-[10px] sm:text-xs font-pixel tracking-wider mt-1"
+          className="text-xs sm:text-sm font-pixel tracking-wider mt-2 animate-glow-gold"
           style={{
             color: '#ffd700',
-            textShadow: '0 0 8px #ffd700, 2px 2px 0 #664400',
+            textShadow: '0 0 8px #ffd700, 0 0 16px #ffd700',
           }}
         >
           ✦ 2025 ✦
