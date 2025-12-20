@@ -2,36 +2,43 @@
 
 ## Overview
 
-100% pixel-art aesthetic using 8bitcn component library with Christmas theme.
+Pixel-art aesthetic using 8bitcn components with animated shader backgrounds and neon glow effects.
 
 ---
 
 ## Color Palette
 
-### Primary Colors
+### Neon Glow Colors
 
-| Name | Hex | RGB | CSS Variable | Usage |
-|------|-----|-----|--------------|-------|
-| Christmas Red | `#c41e3a` | 196, 30, 58 | `--christmas-red` | Primary buttons, accents |
-| Christmas Green | `#228b22` | 34, 139, 34 | `--christmas-green` | Secondary, trees |
-| Christmas Gold | `#ffd700` | 255, 215, 0 | `--christmas-gold` | Stars, highlights |
-| Snow White | `#fffafa` | 255, 250, 250 | `--snow-white` | Text on dark, snow |
+| Name | Hex | Usage |
+|------|-----|-------|
+| Cyan | `#00ffff` | Landing title "MMM", restart button |
+| Pink | `#ff66cc` | Landing subtitle, cat page, forward buttons |
+| Gold | `#ffd700` | Subtitles, photo/ending elements |
+
+### Warm Theme Colors
+
+| Name | Hex | Usage |
+|------|-----|-------|
+| Cream | `#fffacd` | Main text on warm backgrounds |
+| Light Gold | `#ffcc99` | Secondary text |
+| Orange | `#ff6b35` | Shader accents |
+| Burgundy | `#8b2942` | Shader backgrounds |
+| Dark Burgundy | `#2d0a1a` | Deep backgrounds |
 
 ### Background Colors
 
 | Name | Hex | Usage |
 |------|-----|-------|
-| Dark Blue | `#1a1a2e` | Page backgrounds |
-| Darker Blue | `#16213e` | Cards, containers |
-| Night | `#0f0f23` | Deep backgrounds |
+| Deep Purple | `#1a0f2e` | Photo page shader base |
+| Dark Blue | `#1a1a2e` | Photo frame inner |
 
-### Utility Colors
+### Button Gradients
 
-| Name | Hex | Usage |
-|------|-----|-------|
-| Black | `#000000` | Borders, shadows |
-| White | `#ffffff` | Light backgrounds |
-| Gray | `#4a4a4a` | Disabled states |
+| Name | Colors | Usage |
+|------|--------|-------|
+| Pink Button | `#ff4477 → #ff3366 → #cc0044` | START, NEXT |
+| Cyan Button | `#00cccc → #00aaaa → #008888` | RESTART |
 
 ---
 
@@ -43,202 +50,198 @@
 font-family: 'Press Start 2P', cursive;
 ```
 
-**Google Fonts URL:**
+### Utility Class
+```css
+.font-pixel {
+  font-family: 'Press Start 2P', cursive;
+}
 ```
-https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap
+
+### Text Glow Effects
+
+**Cyan Glow:**
+```css
+text-shadow:
+  0 0 10px #00ffff,
+  0 0 20px #00ffff,
+  0 0 40px #00ffff,
+  4px 4px 0 #006666;
 ```
 
-### Font Sizes
+**Pink Glow:**
+```css
+text-shadow:
+  0 0 10px #ff66cc,
+  0 0 20px #ff66cc,
+  0 0 40px #ff66cc,
+  3px 3px 0 #660033;
+```
 
-| Size | Pixels | Tailwind | Usage |
-|------|--------|----------|-------|
-| xs | 8px | `text-xs` | Small labels |
-| sm | 10px | `text-sm` | Body text |
-| base | 12px | `text-base` | Default |
-| lg | 16px | `text-lg` | Subheadings |
-| xl | 20px | `text-xl` | Headings |
-| 2xl | 24px | `text-2xl` | Page titles |
-| 3xl | 32px | `text-3xl` | Hero titles |
-
-### Line Height
-
-- Use generous line-height: `leading-relaxed` or `leading-loose`
-- Pixel fonts need more vertical space
+**Gold Glow:**
+```css
+text-shadow:
+  0 0 8px rgba(255, 215, 0, 0.6),
+  2px 2px 0 #8b4513;
+```
 
 ---
 
-## Spacing
+## PixelFrame Styling
 
-### Base Unit
+8-bit RPG window style with stepped corners.
 
-8px grid system for pixel-perfect alignment.
+### Structure
 
-### Scale
+```
+  ┌──────────────────┐  ← outer border
+ ┌┘                  └┐ ← inner border
+ │                    │
+ │     Content        │
+ │                    │
+ └┐                  ┌┘
+  └──────────────────┘
+```
 
-| Name | Value | Tailwind |
-|------|-------|----------|
-| 1 | 4px | `p-1`, `m-1` |
-| 2 | 8px | `p-2`, `m-2` |
-| 4 | 16px | `p-4`, `m-4` |
-| 6 | 24px | `p-6`, `m-6` |
-| 8 | 32px | `p-8`, `m-8` |
-| 12 | 48px | `p-12`, `m-12` |
-| 16 | 64px | `p-16`, `m-16` |
-
----
-
-## Borders
-
-### Style
-
-- **Width:** 4px solid
-- **Color:** Black (`#000000`)
-- **Radius:** None (`rounded-none`)
+### CSS Implementation
 
 ```css
-border: 4px solid black;
+/* Dark background with blur */
+background: rgba(0, 0, 0, 0.6);
+backdrop-filter: blur(4px);
+
+/* 2-layer pixel border using absolute positioned divs */
+/* Inner layer: accent color */
+/* Outer layer: darker accent color */
+/* Corner pixels for stepped effect */
+```
+
+---
+
+## Shader Backgrounds
+
+### Shared Properties
+
+All shaders use:
+```typescript
+style={{
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: '100vw',
+  height: '100vh',
+  zIndex: 0,
+}}
+```
+
+### Page-specific Themes
+
+| Page | Primary | Secondary | Effect |
+|------|---------|-----------|--------|
+| Landing | Red/Green gradient | ASCII pattern | Christmas tree wave |
+| Cat | Burgundy/Pink | Dither wave | Retro gradient |
+| Photo | Purple/Orange | Gold sine wave | Warm ASCII pattern |
+| Ending | Burgundy | Gold/Orange blob | Swirl with blur |
+
+---
+
+## Animation System
+
+### Glow Animation Pattern
+
+```css
+@keyframes glow-[color] {
+  0%, 100% {
+    text-shadow: [dim glow];
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    text-shadow: [bright glow];
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+animation: glow-[color] 2.5s ease-in-out infinite;
+```
+
+### Staggered Delays
+
+```css
+.animate-glow-cyan { animation-delay: 0s; }
+.animate-glow-pink { animation-delay: 0.4s; }
+.animate-glow-gold { animation-delay: 0.8s; }
+```
+
+---
+
+## Button Styling
+
+### Base Styles
+
+```css
+/* No border radius */
 border-radius: 0;
+
+/* Pixelated border corners using absolute divs */
+/* Gradient background */
+/* Neon glow box-shadow */
+/* Press Start 2P font */
 ```
 
-### Tailwind Classes
-
-```html
-<div class="border-4 border-black rounded-none">
-```
-
----
-
-## Shadows
-
-### Pixel Shadow
-
-Hard-edge shadow for 8-bit effect.
+### Hover State
 
 ```css
-box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
-```
-
-### Tailwind Classes
-
-```html
-<div class="shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+hover:brightness-110
+hover:scale-[1.02]
+hover:-translate-y-0.5
 ```
 
 ### Active State
 
-Remove shadow and translate down on click.
-
 ```css
-.active {
-  transform: translateY(4px);
-  box-shadow: none;
-}
+active:translate-y-1
+active:scale-[0.98]
+active:brightness-90
 ```
 
 ---
 
-## Animation
+## Photo Frame Styling
 
-### Principles
+### Single Photo (Photo Page)
 
-1. **Step-based motion** - Use `steps()` or `step-start` for pixel feel
-2. **Discrete changes** - Avoid smooth gradients
-3. **8-bit timing** - Snappy, game-like responses
-
-### Keyframe Patterns
-
-**Snowfall:**
 ```css
-@keyframes snowfall {
-  0% {
-    transform: translateY(-100vh) rotate(0deg);
-  }
-  100% {
-    transform: translateY(100vh) rotate(360deg);
-  }
-}
-
-animation: snowfall 8s linear infinite;
+padding: 6px;
+background: linear-gradient(135deg, #ffd700 0%, #ff6b35 100%);
+box-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 0 0 40px rgba(255, 107, 53, 0.3);
 ```
 
-**Spin (Vinyl):**
+### Gallery Photos (Ending Page)
+
 ```css
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-animation: spin 3s linear infinite;
-```
-
-**Confetti:**
-```css
-@keyframes confetti-fall {
-  0% {
-    transform: translateY(-100%) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100vh) rotate(720deg);
-    opacity: 0;
-  }
-}
-```
-
-**Blink (8-bit style):**
-```css
-@keyframes blink {
-  0%, 50% {
-    opacity: 1;
-  }
-  51%, 100% {
-    opacity: 0;
-  }
-}
-
-animation: blink 1s step-start infinite;
+border: 3px solid #ffd700;
+box-shadow: 0 0 20px rgba(255, 215, 0, 0.4), 0 0 40px rgba(255, 107, 53, 0.2);
+backdrop-filter: blur(4px);
+background: rgba(0, 0, 0, 0.3);
 ```
 
 ---
 
 ## Responsive Design
 
-### Breakpoints
-
-| Name | Min Width | Usage |
-|------|-----------|-------|
-| sm | 640px | Small tablets |
-| md | 768px | Tablets |
-| lg | 1024px | Laptops |
-| xl | 1280px | Desktops |
-
 ### Mobile-First
 
-All pages designed for mobile first (portrait orientation).
+- All pages designed for mobile portrait
+- Max content width varies by page
+- Fixed position buttons at corners
 
-```css
-/* Mobile default */
-.container {
-  padding: 16px;
-}
+### Breakpoints
 
-/* Tablet and up */
-@media (min-width: 768px) {
-  .container {
-    padding: 32px;
-  }
-}
-```
-
-### Layout Constraints
-
-- Max content width: 640px
-- Centered horizontally
-- Full viewport height: `min-h-screen`
+| Name | Width | Adjustments |
+|------|-------|-------------|
+| sm | 640px | Larger text, wider frames |
+| md | 768px | Desktop optimizations |
 
 ---
 
@@ -246,34 +249,7 @@ All pages designed for mobile first (portrait orientation).
 
 | Layer | Z-Index | Usage |
 |-------|---------|-------|
-| Background | 0 | Page background, decorations |
-| Content | 10 | Main content |
-| Floating | 20 | Floating elements, tooltips |
-| Overlay | 30 | Modal overlays |
-| Modal | 40 | Modal content |
-| Toast | 50 | Notifications |
-
----
-
-## CSS Custom Properties
-
-```css
-:root {
-  /* Colors */
-  --christmas-red: #c41e3a;
-  --christmas-green: #228b22;
-  --christmas-gold: #ffd700;
-  --snow-white: #fffafa;
-  --bg-dark: #1a1a2e;
-  --bg-darker: #16213e;
-
-  /* Shadows */
-  --pixel-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
-
-  /* Borders */
-  --pixel-border: 4px solid black;
-
-  /* Font */
-  --font-pixel: 'Press Start 2P', cursive;
-}
-```
+| Shader Background | 0 | Full-screen shaders |
+| Content | 10 | Main content, photos |
+| Decorations | 10 | Cat images |
+| Buttons | 20 | Fixed position CTAs |
