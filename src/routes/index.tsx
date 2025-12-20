@@ -1,5 +1,6 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { Button } from '@/components/ui/8bit/button'
+import { PixelFrame } from '@/components/ui/8bit/pixel-frame'
 import {
   Shader,
   Ascii,
@@ -466,13 +467,10 @@ function LandingPage(): React.ReactElement {
         />
       </Shader>
 
-      {/* Title - Top Left Corner with dark mask */}
-      <div
-        className="fixed top-6 left-6 z-10 flex flex-col gap-0 px-5 py-4 rounded-sm"
-        style={{
-          background: 'rgba(0, 0, 0, 0.5)',
-          backdropFilter: 'blur(4px)',
-        }}
+      {/* Title - Top Left Corner with pixel frame */}
+      <PixelFrame
+        variant="cyan"
+        className="fixed top-6 left-6 z-10 flex flex-col gap-0 px-5 py-4"
       >
         <h1
           className="text-6xl sm:text-7xl md:text-8xl font-pixel tracking-wider animate-glow-cyan"
@@ -512,20 +510,23 @@ function LandingPage(): React.ReactElement {
         >
           ✦ 2025 ✦
         </p>
-      </div>
+      </PixelFrame>
 
       {/* Subtitle - Bottom Left */}
-      <p
-        className="fixed bottom-8 left-6 z-10 text-xs sm:text-sm font-pixel tracking-wide px-3 py-2 rounded-sm"
-        style={{
-          color: '#ffd700',
-          textShadow: '0 0 8px #ffd700, 0 0 16px #ffcc00, 2px 2px 0 #553300',
-          background: 'rgba(0, 0, 0, 0.4)',
-          backdropFilter: 'blur(4px)',
-        }}
+      <PixelFrame
+        variant="gold"
+        className="fixed bottom-8 left-6 z-10 px-4 py-2"
       >
-        A SPECIAL GIFT FOR YOU
-      </p>
+        <p
+          className="text-xs sm:text-sm font-pixel tracking-wide"
+          style={{
+            color: '#ffd700',
+            textShadow: '0 0 8px #ffd700, 0 0 16px #ffcc00',
+          }}
+        >
+          A SPECIAL GIFT FOR YOU
+        </p>
+      </PixelFrame>
 
       {/* Start button - Bottom Right */}
       <Button

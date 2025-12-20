@@ -1,8 +1,16 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useRef } from 'react'
-import { Snowfall } from '@/components/Snowfall'
 import { Button } from '@/components/ui/8bit/button'
+import { PixelFrame } from '@/components/ui/8bit/pixel-frame'
 import { usePersistedPhoto } from '@/hooks/usePersistedPhoto'
+import {
+  Shader,
+  Ascii,
+  FilmGrain,
+  Group,
+  SineWave,
+  SolidColor,
+} from 'shaders/react'
 
 export const Route = createFileRoute('/photo')({
   component: PhotoPage,
@@ -29,9 +37,63 @@ function PhotoPage(): React.ReactElement {
   }
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#0d0d1a]">
-      {/* Snowfall background */}
-      <Snowfall count={60} />
+    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+      {/* Shader Background - Warm Wave */}
+      <Shader
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          zIndex: 0,
+        }}
+      >
+        <SolidColor
+          color="#1a0f2e"
+          maskType="alpha"
+          transform={{ offsetX: 0, offsetY: 0, rotation: 0, scale: 1.01, anchorX: 0.5, anchorY: 0.5, edges: 'transparent' }}
+        />
+        <Group
+          maskType="alpha"
+          blendMode="normal-oklch"
+          transform={{ edges: 'transparent', scale: 1, anchorX: 0.5, anchorY: 0.5, offsetX: 0, offsetY: 0, rotation: 0 }}
+        >
+          <SolidColor
+            color="#ff6b35"
+            visible={true}
+            maskType="alpha"
+            transform={{ edges: 'transparent', scale: 1, anchorX: 0.5, anchorY: 0.5, offsetX: 0, offsetY: 0, rotation: 0 }}
+          />
+          <SineWave
+            id="waveMask"
+            angle={288}
+            color="#ffd700"
+            visible={true}
+            maskType="alpha"
+            position={{ x: 0.2, y: 0.15 }}
+            softness={0.52}
+            amplitude={0.42}
+            frequency={0.51}
+            thickness={0.99}
+            transform={{ edges: 'transparent', scale: 1, anchorX: 0.5, anchorY: 0.5, offsetX: 0, offsetY: 0, rotation: 0 }}
+          />
+          <Ascii
+            characters="〜*"
+            cellSize={21}
+            fontFamily="Space Mono"
+            maskType="alpha"
+            visible={true}
+            maskSource="waveMask"
+            transform={{ offsetX: 0, offsetY: 0, rotation: 0, scale: 1, anchorX: 0.5, anchorY: 0.5, edges: 'transparent' }}
+          />
+        </Group>
+        <FilmGrain
+          maskType="alpha"
+          strength={0.12}
+          transform={{ edges: 'transparent', scale: 1, anchorX: 0.5, anchorY: 0.5, offsetX: 0, offsetY: 0, rotation: 0 }}
+        />
+      </Shader>
 
       {/* My Cat 1 - bottom left decoration (facing right) */}
       <img
@@ -55,28 +117,26 @@ function PhotoPage(): React.ReactElement {
 
       {/* Main content */}
       <div className="relative z-10 flex flex-col items-center justify-center gap-6 px-4 text-center">
-        {/* Title */}
-        <h1
-          className="text-2xl sm:text-3xl md:text-4xl font-pixel"
-          style={{
-            color: '#ffd700',
-            textShadow: `
-              0 0 10px #ffd700,
-              0 0 20px #ffd700,
-              0 0 40px #ffaa00
-            `,
-          }}
-        >
-          Our Moment
-        </h1>
+        {/* Title with pixel frame */}
+        <PixelFrame variant="gold" className="px-6 py-3">
+          <h1
+            className="text-xl sm:text-2xl md:text-3xl font-pixel"
+            style={{
+              color: '#fffacd',
+              textShadow: '0 0 8px rgba(255, 215, 0, 0.6)',
+            }}
+          >
+            Photo Time
+          </h1>
+        </PixelFrame>
 
-        {/* Photo Frame - Clean Neon Style */}
+        {/* Photo Frame - Warm Gold Style */}
         <div
           className="relative"
           style={{
             padding: '6px',
-            background: '#ff66cc',
-            boxShadow: '0 0 20px #ff66cc, 0 0 40px #ff66cc50',
+            background: 'linear-gradient(135deg, #ffd700 0%, #ff6b35 100%)',
+            boxShadow: '0 0 20px rgba(255, 215, 0, 0.5), 0 0 40px rgba(255, 107, 53, 0.3)',
             width: 'min(50vw, calc((70vh * 3) / 4))',
           }}
         >
@@ -125,16 +185,17 @@ function PhotoPage(): React.ReactElement {
           </div>
         </div>
 
-        {/* Caption */}
-        <p
-          className="font-pixel text-base sm:text-lg md:text-xl"
-          style={{
-            color: '#ff66cc',
-            textShadow: '0 0 10px #ff66cc',
-          }}
-        >
-          Merry Christmas 2025
-        </p>
+        {/* Caption with pixel frame */}
+        <PixelFrame variant="gold" className="px-4 py-2">
+          <p
+            className="font-pixel text-xs sm:text-sm"
+            style={{
+              color: '#ffcc99',
+            }}
+          >
+            - 2025 -
+          </p>
+        </PixelFrame>
 
       </div>
 
